@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Utopia Tribunal</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #f4f4f4;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 2em;
+      color: #444;
+    }
+    .character-box {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 1em;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4a90e2;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3b78c2;
+    }
+    textarea {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 1em;
+      padding: 8px;
+      border-radius: 5px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .stats {
+      margin-top: 30px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚖️ Utopia Tribunal</h1>
+    <div class="character-box" id="characterBox">
+      <!-- Character info will go here -->
+    </div>
+    <div class="choices">
+      <button onclick="judge('Execute')">Execute</button>
+      <button onclick="judge('Exile')">Exile</button>
+      <button onclick="judge('Accept')">Accept</button>
+    </div>
+    <div id="reason-box" style="display:none;">
+      <textarea id="reason" rows="4" placeholder="Write your justification..."></textarea>
+      <br>
+      <button onclick="submitReason()">Submit Reason</button>
+    </div>
+    <div class="result" id="result"></div>
+    <button onclick="nextCharacter()">🔄 Next Person</button>
+
+    <div class="stats" id="stats">
+      <h3>Tribunal Stats</h3>
+      <p>Execute: <span id="executeCount">0</span></p>
+      <p>Exile: <span id="exileCount">0</span></p>
+      <p>Accept: <span id="acceptCount">0</span></p>
+      <p><strong>Player's Role:</strong> <span id="roleDesc">You're still in the early stages...</span></p>
+    </div>
+  </div>
+
+  <script>
+    const characters = [
+      {
+        name: "Napoleon Bonaparte",
+        bio: "French military leader and emperor who expanded the French empire through wars. Known for both legal reforms and authoritarian rule.",
+        decisions: {
+          "Execute": "You believe Napoleon's wars and tyranny are incompatible with utopia.",
+          "Exile": "You recognize his reforms but find his ambition dangerous for a utopian society.",
+          "Accept": "You value his leadership and believe his reforms could benefit a utopian world."
+        }
+      },
+      {
+        name: "Winston Churchill",
+        bio: "British Prime Minister during WWII, famous for his leadership and stirring speeches. Also criticized for colonial attitudes.",
+        decisions: {
+          "Execute": "You judge his imperial mindset incompatible with a just utopia.",
+          "Exile": "You acknowledge his wartime leadership, but cannot overlook his imperialism.",
+          "Accept": "You see him as a necessary figure of resistance and inspiration in a harsh world."
+        }
+      },
+      {
+        name: "Karl Marx",
+        bio: "Philosopher and economist who laid the foundation of communism. Advocated for classless society and revolution.",
+        decisions: {
+          "Execute": "You view his ideas as disruptive and too idealistic for peace.",
+          "Exile": "You respect the vision but fear the instability it may bring.",
+          "Accept": "You see Marx as the architect of true utopia through class equality."
+        }
+      },
+      {
+        name: "George Orwell",
+        bio: "Author of '1984' and 'Animal Farm', a sharp critic of totalitarianism and surveillance.",
+        decisions: {
+          "Execute": "You find his pessimism and distrust of authority dangerous.",
+          "Exile": "You value his ideas but think his warnings sow fear and doubt.",
+          "Accept": "You believe his critique is essential to protect utopia from decay."
+        }
+      },
+      {
+        name: "George Washington",
+        bio: "The first President of the United States and commander-in-chief during the Revolutionary War. Voluntarily stepped down after two terms.",
+        decisions: {
+          "Execute": "You believe even founding figures must be held accountable for their era's injustices.",
+          "Exile": "While he set democratic precedents, his ownership of slaves makes him incompatible with a utopia.",
+          "Accept": "You admire his restraint in power and his role in shaping a republic from revolution."
+        }
+      },
+      {
+        name: "Thomas Jefferson",
+        bio: "Author of the Declaration of Independence, advocate for liberty, but also a slave owner with contradictions in practice.",
+        decisions: {
+          "Execute": "You cannot accept a utopia that glorifies hypocritical ideals built on slavery.",
+          "Exile": "His vision inspired freedom, but his personal choices betray it.",
+          "Accept": "You believe his ideas outweigh his flaws and are vital to utopian principles."
+        }
+      },
+      {
+        name: "Abraham Lincoln",
+        bio: "Led the United States through the Civil War and abolished slavery. Assassinated shortly after re-election.",
+        decisions: {
+          "Execute": "You reject the notion of martyrdom and see his centralization of power as dangerous.",
+          "Exile": "His legacy is noble, but he was willing to suspend liberties to preserve the Union.",
+          "Accept": "You believe he represents the very struggle utopia must endure — moral courage in crisis."
+        }
+      },
+      {
+        name: "Franklin D. Roosevelt",
+        bio: "President during the Great Depression and World War II. Known for the New Deal reforms and leadership during wartime.",
+        decisions: {
+          "Execute": "You see his economic control and internment of Japanese-Americans as signs of soft totalitarianism.",
+          "Exile": "You admire his reform but believe his power was dangerously unchecked.",
+          "Accept": "You praise his vision of security, welfare, and resolve in turbulent times."
+        }
+      },
+      {
+        name: "Ronald Reagan",
+        bio: "40th U.S. President who championed conservative economics, anti-communism, and a revitalized national identity.",
+        decisions: {
+          "Execute": "You believe his policies widened inequality and damaged social cohesion.",
+          "Exile": "He inspired millions, but his neoliberal vision contradicts utopian justice.",
+          "Accept": "You see him as a leader who fought tyranny and empowered freedom and optimism."
+        }
+      }
+    ];
+
+    let currentCharacter = null;
+    let decisionStats = {
+      Execute: 0,
+      Exile: 0,
+      Accept: 0
+    };
+
+    function nextCharacter() {
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("reason-box").style.display = "none";
+      document.getElementById("reason").value = "";
+
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      currentCharacter = characters[randomIndex];
+
+      document.getElementById("characterBox").innerHTML = `
+        <h2>🔍 On Trial: ${currentCharacter.name}</h2>
+        <p>${currentCharacter.bio}</p>
+      `;
+    }
+
+    function judge(choice) {
+      if (!currentCharacter) return;
+      sessionStorage.setItem("decision", choice);
+      document.getElementById("result").innerHTML = `You chose to <strong>${choice}</strong>. Now justify your decision.`;
+      document.getElementById("reason-box").style.display = "block";
+
+      // Update stats
+      decisionStats[choice]++;
+      updateStats();
+    }
+
+    function submitReason() {
+      const decision = sessionStorage.getItem("decision");
+      const reason = document.getElementById("reason").value.trim();
+      const explanation = currentCharacter.decisions[decision];
+
+      document.getElementById("result").innerHTML = `
+        <p>${explanation}</p>
+        <p><strong>Your justification:</strong> ${reason || "No reason provided."}</p>
+      `;
+      document.getElementById("reason-box").style.display = "none";
+    }
+
+    function updateStats() {
+      document.getElementById("executeCount").textContent = decisionStats.Execute;
+      document.getElementById("exileCount").textContent = decisionStats.Exile;
+      document.getElementById("acceptCount").textContent = decisionStats.Accept;
+
+      // Update player's role description
+      let roleDescription = "You're still in the early stages...";
+      if (decisionStats.Execute > decisionStats.Exile && decisionStats.Execute > decisionStats.Accept) {
+        roleDescription = "You seem to lean towards a more authoritarian approach.";
+      } else if (decisionStats.Accept > decisionStats.Exile) {
+        roleDescription = "You're an idealistic leader, valuing acceptance!";
+      } else {
+        roleDescription = "You're a realist, finding balance in exile.";
+      }
+
+      document.getElementById("roleDesc").textContent = roleDescription;
+    }
+
+    // Load a character at start
+    nextCharacter();
+  </script>
+</body>
+</html>
