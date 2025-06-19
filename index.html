@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Utopia Tribunal</title>
   <style>
     body {
@@ -11,7 +11,6 @@
       color: #333;
       text-align: center;
       padding: 20px;
-      transition: background 0.5s ease;
     }
     .container {
       background: #fff;
@@ -33,11 +32,12 @@
     }
     .character-box {
       margin-bottom: 20px;
+      min-height: 120px;
     }
     button {
       padding: 12px 22px;
       font-size: 1em;
-      margin: 10px;
+      margin: 10px 5px;
       border: none;
       border-radius: 6px;
       background-color: #43a047;
@@ -55,10 +55,12 @@
       padding: 10px;
       border-radius: 6px;
       border: 1px solid #ccc;
+      resize: vertical;
     }
     .result {
       margin-top: 20px;
       font-weight: bold;
+      min-height: 60px;
     }
     .stats {
       margin-top: 30px;
@@ -66,6 +68,7 @@
       background: #f1f8e9;
       padding: 15px;
       border-radius: 10px;
+      text-align: left;
     }
   </style>
 </head>
@@ -80,7 +83,7 @@
     </div>
     <div id="reason-box" style="display:none;">
       <textarea id="reason" rows="4" placeholder="Write your justification..."></textarea>
-      <br>
+      <br />
       <button onclick="submitReason()">Submit Reason</button>
     </div>
     <div class="result" id="result"></div>
@@ -195,129 +198,82 @@
           "Exile": "You appreciate his leadership but find his compromises disappointing.",
           "Accept": "You see him as a symbol of progress and dialogue in a polarized world."
         }
-      },
-      {
-        name: "Vladimir Lenin",
-        bio: "Leader of the Bolshevik Revolution and founder of the Soviet state. Visionary or totalitarian?",
-        decisions: {
-          "Execute": "You believe his legacy brought too much blood for too little freedom.",
-          "Exile": "You recognize the revolution's intent, but not its methods.",
-          "Accept": "You believe his radical vision is necessary to break oppressive cycles."
-        }
-      },
-      {
-        name: "Marie Curie",
-        bio: "Pioneer physicist and chemist, first woman to win a Nobel Prize, known for groundbreaking work on radioactivity."
-        decisions: {
-"Execute": "You think her work's risks outweighed its benefits.",
-"Exile": "You respect her achievements but caution against unchecked scientific progress.",
-"Accept": "You celebrate her as a symbol of human curiosity and progress."
-}
-},
-{
-name: "Nelson Mandela",
-bio: "Anti-apartheid revolutionary and former President of South Africa, championed reconciliation.",
-decisions: {
-"Execute": "You question his compromises with former oppressors.",
-"Exile": "You admire his leadership but find his political path imperfect.",
-"Accept": "You revere him as a beacon of justice and forgiveness."
-}
-},
-{
-name: "Sun Tzu",
-bio: "Ancient Chinese military strategist, author of 'The Art of War', emphasizing strategy over brute force.",
-decisions: {
-"Execute": "You see his tactics as promoting conflict and deceit.",
-"Exile": "You value his wisdom but distrust militaristic philosophy.",
-"Accept": "You accept his teachings as essential strategic insight."
-}
-},
-{
-name: "Alexandre Dumas",
-bio: "French writer famous for adventure novels like 'The Three Musketeers', blending history and fiction.",
-decisions: {
-"Execute": "You see his romanticism as naive escapism.",
-"Exile": "You enjoy his stories but find them lacking in realism.",
-"Accept": "You embrace his spirit of adventure and justice."
-}
-},
-{
-name: "Margaret Thatcher",
-bio: "First female British Prime Minister, known for conservative policies and strong leadership style.",
-decisions: {
-"Execute": "You oppose her divisive and harsh policies.",
-"Exile": "You respect her conviction but question her social impact.",
-"Accept": "You admire her strength and economic reforms."
-}
-},
-{
-name: "Karl Marx",
-bio: "Philosopher and economist who laid the foundation of communism. Advocated for classless society and revolution.",
-decisions: {
-"Execute": "You view his ideas as disruptive and too idealistic for peace.",
-"Exile": "You respect the vision but fear the instability it may bring.",
-"Accept": "You see Marx as the architect of true utopia through class equality."
-}
-}
-];
+      }
+    ];
+
     let currentCharacter = null;
-let decisionStats = {
-  Execute: 0,
-  Exile: 0,
-  Accept: 0
-};
+    let decisionStats = {
+      Execute: 0,
+      Exile: 0,
+      Accept: 0
+    };
 
-function nextCharacter() {
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("reason-box").style.display = "none";
-  document.getElementById("reason").value = "";
+    function nextCharacter() {
+      // 清空结果和理由框
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("reason-box").style.display = "none";
+      document.getElementById("reason").value = "";
 
-  const randomIndex = Math.floor(Math.random() * characters.length);
-  currentCharacter = characters[randomIndex];
+      // 随机选角色
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      currentCharacter = characters[randomIndex];
 
-  document.getElementById("characterBox").innerHTML = `
-    <h2>🧑‍⚖️ On Trial: ${currentCharacter.name}</h2>
-    <p>${currentCharacter.bio}</p>
-  `;
-}
+      // 显示角色信息
+      document.getElementById("characterBox").innerHTML = `
+        <h2>🧑‍⚖️ On Trial: ${currentCharacter.name}</h2>
+        <p>${currentCharacter.bio}</p>
+      `;
+    }
 
-function judge(choice) {
-  if (!currentCharacter) return;
-  sessionStorage.setItem("decision", choice);
-  document.getElementById("result").innerHTML = `You chose to <strong>${choice}</strong>. Please explain your reasoning.`;
-  document.getElementById("reason-box").style.display = "block";
-  decisionStats[choice]++;
-  updateStats();
-}
+    function judge(choice) {
+      if (!currentCharacter) return;
+      // 保存选择
+      sessionStorage.setItem("decision", choice);
+      // 提示写理由
+      document.getElementById("result").innerHTML = `You chose to <strong>${choice}</strong>. Please explain your reasoning.`;
+      document.getElementById("reason-box").style.display = "block";
 
-function submitReason() {
-  const decision = sessionStorage.getItem("decision");
-  const reason = document.getElementById("reason").value.trim();
-  const explanation = currentCharacter.decisions[decision];
+      // 统计
+      decisionStats[choice]++;
+      updateStats();
+    }
 
-  document.getElementById("result").innerHTML = `
-    <p>${explanation}</p>
-    <p><strong>Your justification:</strong> ${reason || "No reason provided."}</p>
-  `;
-  document.getElementById("reason-box").style.display = "none";
-}
+    function submitReason() {
+      const decision = sessionStorage.getItem("decision");
+      const reason = document.getElementById("reason").value.trim();
+      if (!decision) {
+        alert("Please make a decision first!");
+        return;
+      }
+      const explanation = currentCharacter.decisions[decision] || "No explanation available.";
 
-function updateStats() {
-  document.getElementById("executeCount").textContent = decisionStats.Execute;
-  document.getElementById("exileCount").textContent = decisionStats.Exile;
-  document.getElementById("acceptCount").textContent = decisionStats.Accept;
+      document.getElementById("result").innerHTML = `
+        <p><em>System's view:</em> ${explanation}</p>
+        <p><strong>Your justification:</strong> ${reason || "No reason provided."}</p>
+      `;
+      document.getElementById("reason-box").style.display = "none";
+    }
 
-  let role = "You're just getting started...";
-  if (decisionStats.Execute > decisionStats.Exile && decisionStats.Execute > decisionStats.Accept) {
-    role = "You are a ruthless purifier of ideals.";
-  } else if (decisionStats.Accept > decisionStats.Exile) {
-    role = "You are a utopian dreamer, eager to welcome visionaries.";
-  } else {
-    role = "You are a pragmatic reformer, cautious and balanced.";
-  }
+    function updateStats() {
+      document.getElementById("executeCount").textContent = decisionStats.Execute;
+      document.getElementById("exileCount").textContent = decisionStats.Exile;
+      document.getElementById("acceptCount").textContent = decisionStats.Accept;
 
-  document.getElementById("roleDesc").textContent = role;
-}
+      let role = "You're just getting started...";
+      if (decisionStats.Execute > decisionStats.Exile && decisionStats.Execute > decisionStats.Accept) {
+        role = "You are a ruthless purifier of ideals.";
+      } else if (decisionStats.Accept > decisionStats.Exile) {
+        role = "You are a utopian dreamer, eager to welcome visionaries.";
+      } else {
+        role = "You are a pragmatic reformer, cautious and balanced.";
+      }
 
-nextCharacter();
-</script> </body> </html>
+      document.getElementById("roleDesc").textContent = role;
+    }
+
+    // 页面加载时先显示一个角色
+    window.onload = nextCharacter;
+  </script>
+</body>
+</html>
+
