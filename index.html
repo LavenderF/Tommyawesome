@@ -6,46 +6,55 @@
   <title>Utopia Tribunal</title>
   <style>
     body {
-      font-family: Georgia, serif;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
       color: #333;
       text-align: center;
       padding: 20px;
+      transition: background 0.5s ease;
     }
     .container {
       background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      max-width: 700px;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 800px;
       margin: auto;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
     h1 {
-      font-size: 2em;
-      color: #444;
+      font-size: 2.2em;
+      color: #2e7d32;
+      margin-bottom: 20px;
     }
     .character-box {
       margin-bottom: 20px;
     }
     button {
-      padding: 10px 18px;
+      padding: 12px 22px;
       font-size: 1em;
       margin: 10px;
       border: none;
-      border-radius: 5px;
-      background-color: #4a90e2;
+      border-radius: 6px;
+      background-color: #43a047;
       color: white;
       cursor: pointer;
+      transition: background 0.3s;
     }
     button:hover {
-      background-color: #3b78c2;
+      background-color: #2e7d32;
     }
     textarea {
       width: 100%;
       margin-top: 10px;
       font-size: 1em;
-      padding: 8px;
-      border-radius: 5px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
     .result {
       margin-top: 20px;
@@ -54,19 +63,20 @@
     .stats {
       margin-top: 30px;
       font-size: 1.1em;
+      background: #f1f8e9;
+      padding: 15px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>⚖️ Utopia Tribunal</h1>
-    <div class="character-box" id="characterBox">
-      <!-- Character info will go here -->
-    </div>
+    <h1>🌍 Utopia Tribunal 🌟</h1>
+    <div class="character-box" id="characterBox"></div>
     <div class="choices">
-      <button onclick="judge('Execute')">Execute</button>
-      <button onclick="judge('Exile')">Exile</button>
-      <button onclick="judge('Accept')">Accept</button>
+      <button onclick="judge('Execute')">⚔️ Execute</button>
+      <button onclick="judge('Exile')">🛫 Exile</button>
+      <button onclick="judge('Accept')">🤝 Accept</button>
     </div>
     <div id="reason-box" style="display:none;">
       <textarea id="reason" rows="4" placeholder="Write your justification..."></textarea>
@@ -77,11 +87,11 @@
     <button onclick="nextCharacter()">🔄 Next Person</button>
 
     <div class="stats" id="stats">
-      <h3>Tribunal Stats</h3>
-      <p>Execute: <span id="executeCount">0</span></p>
-      <p>Exile: <span id="exileCount">0</span></p>
-      <p>Accept: <span id="acceptCount">0</span></p>
-      <p><strong>Player's Role:</strong> <span id="roleDesc">You're still in the early stages...</span></p>
+      <h3>🧮 Tribunal Stats</h3>
+      <p>⚔️ Execute: <span id="executeCount">0</span></p>
+      <p>🛫 Exile: <span id="exileCount">0</span></p>
+      <p>🤝 Accept: <span id="acceptCount">0</span></p>
+      <p><strong>🧠 Role:</strong> <span id="roleDesc">You're just getting started...</span></p>
     </div>
   </div>
 
@@ -168,6 +178,86 @@
           "Accept": "You see him as a leader who fought tyranny and empowered freedom and optimism."
         }
       }
+      {
+        name: "Angela Merkel",
+        bio: "Chancellor of Germany (2005–2021), known for pragmatic leadership and managing multiple crises in Europe.",
+        decisions: {
+          Execute: "You believe technocratic moderation is a cover for stagnation.",
+          Exile: "You admire her stability but think she lacks visionary spark.",
+          Accept: "You believe she represents pragmatic, humane governance essential to utopia."
+        }
+      },
+      {
+        name: "Barack Obama",
+        bio: "44th U.S. President, known for hope-driven rhetoric, Affordable Care Act, and international diplomacy.",
+        decisions: {
+          Execute: "You see his charisma as a mask for drone strikes and neoliberalism.",
+          Exile: "You appreciate his leadership but find his compromises disappointing.",
+          Accept: "You see him as a symbol of progress and dialogue in a polarized world."
+        }
+      },
+      {
+        name: "Vladimir Lenin",
+        bio: "Leader of the Bolshevik Revolution and founder of the Soviet state. Visionary or totalitarian?",
+        decisions: {
+          Execute: "You believe his legacy brought too much blood for too little freedom.",
+          Exile: "You recognize the revolution's intent, but not its methods.",
+          Accept: "You believe his radical vision is necessary to break oppressive cycles."
+        }
+      },{
+    name: "Marie Curie",
+    bio: "Pioneer physicist and chemist, first woman to win a Nobel Prize, known for groundbreaking work on radioactivity.",
+    decisions: {
+      Execute: "You think her work's risks outweighed its benefits.",
+      Exile: "You respect her achievements but caution against unchecked scientific progress.",
+      Accept: "You celebrate her as a symbol of human curiosity and progress."
+    }
+  },
+  {
+    name: "Nelson Mandela",
+    bio: "Anti-apartheid revolutionary and former President of South Africa, championed reconciliation.",
+    decisions: {
+      Execute: "You question his compromises with former oppressors.",
+      Exile: "You admire his leadership but find his political path imperfect.",
+      Accept: "You revere him as a beacon of justice and forgiveness."
+    }
+  },
+  {
+    name: "Sun Tzu",
+    bio: "Ancient Chinese military strategist, author of 'The Art of War', emphasizing strategy over brute force.",
+    decisions: {
+      Execute: "You see his tactics as promoting conflict and deceit.",
+      Exile: "You value his wisdom but distrust militaristic philosophy.",
+      Accept: "You accept his teachings as essential strategic insight."
+    }
+  },
+  {
+    name: "Alexandre Dumas",
+    bio: "French writer famous for adventure novels like 'The Three Musketeers', blending history and fiction.",
+    decisions: {
+      Execute: "You see his romanticism as naive escapism.",
+      Exile: "You enjoy his stories but find them lacking in realism.",
+      Accept: "You embrace his spirit of adventure and justice."
+    }
+  },
+  {
+    name: "Margaret Thatcher",
+    bio: "First female British Prime Minister, known for conservative policies and strong leadership style.",
+    decisions: {
+      Execute: "You oppose her divisive and harsh policies.",
+      Exile: "You respect her conviction but question her social impact.",
+      Accept: "You admire her strength and economic reforms."
+    }
+  },
+  {
+    name: "Karl Marx",
+    bio: "Philosopher and economist who laid the foundation of communism. Advocated for classless society and revolution.",
+    decisions: {
+      Execute: "You view his ideas as disruptive and too idealistic for peace.",
+      Exile: "You respect the vision but fear the instability it may bring.",
+      Accept: "You see Marx as the architect of true utopia through class equality."
+    }
+  }
     ];
 
     let currentCharacter = null;
@@ -186,7 +276,7 @@
       currentCharacter = characters[randomIndex];
 
       document.getElementById("characterBox").innerHTML = `
-        <h2>🔍 On Trial: ${currentCharacter.name}</h2>
+        <h2>🧑‍⚖️ On Trial: ${currentCharacter.name}</h2>
         <p>${currentCharacter.bio}</p>
       `;
     }
@@ -194,10 +284,8 @@
     function judge(choice) {
       if (!currentCharacter) return;
       sessionStorage.setItem("decision", choice);
-      document.getElementById("result").innerHTML = `You chose to <strong>${choice}</strong>. Now justify your decision.`;
+      document.getElementById("result").innerHTML = `You chose to <strong>${choice}</strong>. Please explain your reasoning.`;
       document.getElementById("reason-box").style.display = "block";
-
-      // Update stats
       decisionStats[choice]++;
       updateStats();
     }
@@ -219,20 +307,18 @@
       document.getElementById("exileCount").textContent = decisionStats.Exile;
       document.getElementById("acceptCount").textContent = decisionStats.Accept;
 
-      // Update player's role description
-      let roleDescription = "You're still in the early stages...";
+      let role = "You're just getting started...";
       if (decisionStats.Execute > decisionStats.Exile && decisionStats.Execute > decisionStats.Accept) {
-        roleDescription = "You seem to lean towards a more authoritarian approach.";
+        role = "You are a ruthless purifier of ideals.";
       } else if (decisionStats.Accept > decisionStats.Exile) {
-        roleDescription = "You're an idealistic leader, valuing acceptance!";
+        role = "You are a utopian dreamer, eager to welcome visionaries.";
       } else {
-        roleDescription = "You're a realist, finding balance in exile.";
+        role = "You are a pragmatic reformer, cautious and balanced.";
       }
 
-      document.getElementById("roleDesc").textContent = roleDescription;
+      document.getElementById("roleDesc").textContent = role;
     }
 
-    // Load a character at start
     nextCharacter();
   </script>
 </body>
