@@ -177,149 +177,147 @@
           "Exile": "He inspired millions, but his neoliberal vision contradicts utopian justice.",
           "Accept": "You see him as a leader who fought tyranny and empowered freedom and optimism."
         }
-      }
+      },
       {
         name: "Angela Merkel",
         bio: "Chancellor of Germany (2005–2021), known for pragmatic leadership and managing multiple crises in Europe.",
         decisions: {
-          Execute: "You believe technocratic moderation is a cover for stagnation.",
-          Exile: "You admire her stability but think she lacks visionary spark.",
-          Accept: "You believe she represents pragmatic, humane governance essential to utopia."
+          "Execute": "You believe technocratic moderation is a cover for stagnation.",
+          "Exile": "You admire her stability but think she lacks visionary spark.",
+          "Accept": "You believe she represents pragmatic, humane governance essential to utopia."
         }
       },
       {
         name: "Barack Obama",
         bio: "44th U.S. President, known for hope-driven rhetoric, Affordable Care Act, and international diplomacy.",
         decisions: {
-          Execute: "You see his charisma as a mask for drone strikes and neoliberalism.",
-          Exile: "You appreciate his leadership but find his compromises disappointing.",
-          Accept: "You see him as a symbol of progress and dialogue in a polarized world."
+          "Execute": "You see his charisma as a mask for drone strikes and neoliberalism.",
+          "Exile": "You appreciate his leadership but find his compromises disappointing.",
+          "Accept": "You see him as a symbol of progress and dialogue in a polarized world."
         }
       },
       {
         name: "Vladimir Lenin",
         bio: "Leader of the Bolshevik Revolution and founder of the Soviet state. Visionary or totalitarian?",
         decisions: {
-          Execute: "You believe his legacy brought too much blood for too little freedom.",
-          Exile: "You recognize the revolution's intent, but not its methods.",
-          Accept: "You believe his radical vision is necessary to break oppressive cycles."
+          "Execute": "You believe his legacy brought too much blood for too little freedom.",
+          "Exile": "You recognize the revolution's intent, but not its methods.",
+          "Accept": "You believe his radical vision is necessary to break oppressive cycles."
         }
-      },{
-    name: "Marie Curie",
-    bio: "Pioneer physicist and chemist, first woman to win a Nobel Prize, known for groundbreaking work on radioactivity.",
-    decisions: {
-      Execute: "You think her work's risks outweighed its benefits.",
-      Exile: "You respect her achievements but caution against unchecked scientific progress.",
-      Accept: "You celebrate her as a symbol of human curiosity and progress."
-    }
-  },
-  {
-    name: "Nelson Mandela",
-    bio: "Anti-apartheid revolutionary and former President of South Africa, championed reconciliation.",
-    decisions: {
-      Execute: "You question his compromises with former oppressors.",
-      Exile: "You admire his leadership but find his political path imperfect.",
-      Accept: "You revere him as a beacon of justice and forgiveness."
-    }
-  },
-  {
-    name: "Sun Tzu",
-    bio: "Ancient Chinese military strategist, author of 'The Art of War', emphasizing strategy over brute force.",
-    decisions: {
-      Execute: "You see his tactics as promoting conflict and deceit.",
-      Exile: "You value his wisdom but distrust militaristic philosophy.",
-      Accept: "You accept his teachings as essential strategic insight."
-    }
-  },
-  {
-    name: "Alexandre Dumas",
-    bio: "French writer famous for adventure novels like 'The Three Musketeers', blending history and fiction.",
-    decisions: {
-      Execute: "You see his romanticism as naive escapism.",
-      Exile: "You enjoy his stories but find them lacking in realism.",
-      Accept: "You embrace his spirit of adventure and justice."
-    }
-  },
-  {
-    name: "Margaret Thatcher",
-    bio: "First female British Prime Minister, known for conservative policies and strong leadership style.",
-    decisions: {
-      Execute: "You oppose her divisive and harsh policies.",
-      Exile: "You respect her conviction but question her social impact.",
-      Accept: "You admire her strength and economic reforms."
-    }
-  },
-  {
-    name: "Karl Marx",
-    bio: "Philosopher and economist who laid the foundation of communism. Advocated for classless society and revolution.",
-    decisions: {
-      Execute: "You view his ideas as disruptive and too idealistic for peace.",
-      Exile: "You respect the vision but fear the instability it may bring.",
-      Accept: "You see Marx as the architect of true utopia through class equality."
-    }
-  }
-    ];
-
+      },
+      {
+        name: "Marie Curie",
+        bio: "Pioneer physicist and chemist, first woman to win a Nobel Prize, known for groundbreaking work on radioactivity."
+        decisions: {
+"Execute": "You think her work's risks outweighed its benefits.",
+"Exile": "You respect her achievements but caution against unchecked scientific progress.",
+"Accept": "You celebrate her as a symbol of human curiosity and progress."
+}
+},
+{
+name: "Nelson Mandela",
+bio: "Anti-apartheid revolutionary and former President of South Africa, championed reconciliation.",
+decisions: {
+"Execute": "You question his compromises with former oppressors.",
+"Exile": "You admire his leadership but find his political path imperfect.",
+"Accept": "You revere him as a beacon of justice and forgiveness."
+}
+},
+{
+name: "Sun Tzu",
+bio: "Ancient Chinese military strategist, author of 'The Art of War', emphasizing strategy over brute force.",
+decisions: {
+"Execute": "You see his tactics as promoting conflict and deceit.",
+"Exile": "You value his wisdom but distrust militaristic philosophy.",
+"Accept": "You accept his teachings as essential strategic insight."
+}
+},
+{
+name: "Alexandre Dumas",
+bio: "French writer famous for adventure novels like 'The Three Musketeers', blending history and fiction.",
+decisions: {
+"Execute": "You see his romanticism as naive escapism.",
+"Exile": "You enjoy his stories but find them lacking in realism.",
+"Accept": "You embrace his spirit of adventure and justice."
+}
+},
+{
+name: "Margaret Thatcher",
+bio: "First female British Prime Minister, known for conservative policies and strong leadership style.",
+decisions: {
+"Execute": "You oppose her divisive and harsh policies.",
+"Exile": "You respect her conviction but question her social impact.",
+"Accept": "You admire her strength and economic reforms."
+}
+},
+{
+name: "Karl Marx",
+bio: "Philosopher and economist who laid the foundation of communism. Advocated for classless society and revolution.",
+decisions: {
+"Execute": "You view his ideas as disruptive and too idealistic for peace.",
+"Exile": "You respect the vision but fear the instability it may bring.",
+"Accept": "You see Marx as the architect of true utopia through class equality."
+}
+}
+];
     let currentCharacter = null;
-    let decisionStats = {
-      Execute: 0,
-      Exile: 0,
-      Accept: 0
-    };
+let decisionStats = {
+  Execute: 0,
+  Exile: 0,
+  Accept: 0
+};
 
-    function nextCharacter() {
-      document.getElementById("result").innerHTML = "";
-      document.getElementById("reason-box").style.display = "none";
-      document.getElementById("reason").value = "";
+function nextCharacter() {
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("reason-box").style.display = "none";
+  document.getElementById("reason").value = "";
 
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      currentCharacter = characters[randomIndex];
+  const randomIndex = Math.floor(Math.random() * characters.length);
+  currentCharacter = characters[randomIndex];
 
-      document.getElementById("characterBox").innerHTML = `
-        <h2>🧑‍⚖️ On Trial: ${currentCharacter.name}</h2>
-        <p>${currentCharacter.bio}</p>
-      `;
-    }
+  document.getElementById("characterBox").innerHTML = `
+    <h2>🧑‍⚖️ On Trial: ${currentCharacter.name}</h2>
+    <p>${currentCharacter.bio}</p>
+  `;
+}
 
-    function judge(choice) {
-      if (!currentCharacter) return;
-      sessionStorage.setItem("decision", choice);
-      document.getElementById("result").innerHTML = `You chose to <strong>${choice}</strong>. Please explain your reasoning.`;
-      document.getElementById("reason-box").style.display = "block";
-      decisionStats[choice]++;
-      updateStats();
-    }
+function judge(choice) {
+  if (!currentCharacter) return;
+  sessionStorage.setItem("decision", choice);
+  document.getElementById("result").innerHTML = `You chose to <strong>${choice}</strong>. Please explain your reasoning.`;
+  document.getElementById("reason-box").style.display = "block";
+  decisionStats[choice]++;
+  updateStats();
+}
 
-    function submitReason() {
-      const decision = sessionStorage.getItem("decision");
-      const reason = document.getElementById("reason").value.trim();
-      const explanation = currentCharacter.decisions[decision];
+function submitReason() {
+  const decision = sessionStorage.getItem("decision");
+  const reason = document.getElementById("reason").value.trim();
+  const explanation = currentCharacter.decisions[decision];
 
-      document.getElementById("result").innerHTML = `
-        <p>${explanation}</p>
-        <p><strong>Your justification:</strong> ${reason || "No reason provided."}</p>
-      `;
-      document.getElementById("reason-box").style.display = "none";
-    }
+  document.getElementById("result").innerHTML = `
+    <p>${explanation}</p>
+    <p><strong>Your justification:</strong> ${reason || "No reason provided."}</p>
+  `;
+  document.getElementById("reason-box").style.display = "none";
+}
 
-    function updateStats() {
-      document.getElementById("executeCount").textContent = decisionStats.Execute;
-      document.getElementById("exileCount").textContent = decisionStats.Exile;
-      document.getElementById("acceptCount").textContent = decisionStats.Accept;
+function updateStats() {
+  document.getElementById("executeCount").textContent = decisionStats.Execute;
+  document.getElementById("exileCount").textContent = decisionStats.Exile;
+  document.getElementById("acceptCount").textContent = decisionStats.Accept;
 
-      let role = "You're just getting started...";
-      if (decisionStats.Execute > decisionStats.Exile && decisionStats.Execute > decisionStats.Accept) {
-        role = "You are a ruthless purifier of ideals.";
-      } else if (decisionStats.Accept > decisionStats.Exile) {
-        role = "You are a utopian dreamer, eager to welcome visionaries.";
-      } else {
-        role = "You are a pragmatic reformer, cautious and balanced.";
-      }
+  let role = "You're just getting started...";
+  if (decisionStats.Execute > decisionStats.Exile && decisionStats.Execute > decisionStats.Accept) {
+    role = "You are a ruthless purifier of ideals.";
+  } else if (decisionStats.Accept > decisionStats.Exile) {
+    role = "You are a utopian dreamer, eager to welcome visionaries.";
+  } else {
+    role = "You are a pragmatic reformer, cautious and balanced.";
+  }
 
-      document.getElementById("roleDesc").textContent = role;
-    }
+  document.getElementById("roleDesc").textContent = role;
+}
 
-    nextCharacter();
-  </script>
-</body>
-</html>
+nextCharacter();
+</script> </body> </html>
